@@ -3,11 +3,11 @@ export default class Produto {
     
     private _id: string;
     private _name: string;
-    private _price: Number;
+    private _price: number;
 
 
 
-    constructor(id: string, name: string, price: Number) {
+    constructor(id: string, name: string, price: number) {
         this._id = id;
         this._name = name;
         this._price = price
@@ -39,7 +39,7 @@ export default class Produto {
         this.validate()
     }
 
-    get price(){
+    get price():number{
         return this._price
     }
 }
