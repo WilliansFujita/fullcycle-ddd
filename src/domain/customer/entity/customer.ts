@@ -7,6 +7,7 @@ class Customer {
     private _name: string;
     private _address!: Address
     private _active: boolean = false;
+    private _rewardsPoints: number = 0;
 
     constructor(id: string, name: string) {
         this._id = id
@@ -51,6 +52,14 @@ class Customer {
 
     isActive(): boolean {
         return this._active;
+    }
+
+    addRewardsPoints(points:number){
+        this._rewardsPoints += points;
+    }
+
+    get rewardsPoints(): number{
+        return this._rewardsPoints
     }
 
 }
