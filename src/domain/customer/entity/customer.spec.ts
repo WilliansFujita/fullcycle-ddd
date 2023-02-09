@@ -35,6 +35,17 @@ describe("Customer unit itests",()=>{
 
     it("should deactivate customer", ()=> {
         const customer = new Customer("123","Will")
+        expect(customer.rewardsPoints).toBe(0)
+        
+        customer.addRewardsPoints(10)
+        expect(customer.rewardsPoints).toBe(10)
+        
+        customer.addRewardsPoints(20)
+        expect(customer.rewardsPoints).toBe(30)
+    })
+
+    it("should add reward points", ()=> {
+        const customer = new Customer("123","Will")
 
         customer.deactivate();
 
