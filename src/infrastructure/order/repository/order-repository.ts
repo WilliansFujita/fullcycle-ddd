@@ -60,7 +60,7 @@ export default class OrderRepository implements OrderRepositoryInterface {
   }
 
   itemsConverter(items: OrderItemModel[]): OrderItem[] {
-    return items.map(item=>new OrderItem(item.id, item.name, item.price/item.quantity, item.product_id, item.quantity));
+    return items.map(item=>new OrderItem(item.id, item.name, item.price, item.product_id, item.quantity));
   }
 
   findAll(): Promise<Order[]> {

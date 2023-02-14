@@ -87,7 +87,6 @@ describe("Product repository test", () => {
 
     const order_finded = await orderRepository.find('o1')
 
-    console.log(order_finded)
     expect(order_finded).toStrictEqual(ordem)
   })
 
@@ -111,7 +110,6 @@ describe("Product repository test", () => {
 
     const orderFromReposytory = await orderRepository.findAll()
 
-    console.log(orderFromReposytory)
     expect(orderFromReposytory).toStrictEqual([ordem])
   })
 

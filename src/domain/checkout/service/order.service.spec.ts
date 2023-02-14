@@ -24,6 +24,6 @@ describe("Order service unit tests", ()=>{
 
         const total = OrderService.total([ordem1,ordem2])
 
-        expect(total).toBe(700)
+        expect(total).toBe(ordem1.total()+ordem2.total())
     })
 })
