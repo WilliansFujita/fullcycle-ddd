@@ -1,6 +1,7 @@
 import { Transaction } from "sequelize";
 import { Sequelize } from "sequelize-typescript";
 import Order from "../../../domain/checkout/entity/order";
+import OrderItem from "../../../domain/checkout/entity/order_item";
 import OrderRepositoryInterface from "../../../domain/checkout/repository/order-repository.interface";
 import OrderItemModel from "./sequilize/order-item.models";
 import OrderModel from "./sequilize/order.models";
@@ -44,11 +45,38 @@ export default class OrderRepository implements OrderRepositoryInterface {
 
 
   find(id: string): Promise<Order> {
-    throw new Error("Method not implemented.");
+    return new Promise(async (resolve, reject) => {
+      try {
+        const order_finded = await OrderModel.findOne({
+          where:{id},
+          include: [{ model: OrderItemModel }],
+        });
+        
+        resolve(new Order(order_finded.id, order_finded.customer_id, this.itemsConverter(order_finded.items)))
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
+
+  itemsConverter(items: OrderItemModel[]): OrderItem[] {
+    return items.map(item=>new OrderItem(item.id, item.name, item.price/item.quantity, item.product_id, item.quantity));
+  }
+
   findAll(): Promise<Order[]> {
-    throw new Error("Method not implemented.");
+    return new Promise(async (resolve, reject) => {
+      try {
+        const orders = await OrderModel.findAll({
+          include: [{ model: OrderItemModel }],
+        });
+        const order_return = orders.map(order => new Order(order.id, order.customer_id, this.itemsConverter(order.items)))
+        resolve(order_return)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
+
   async create(entity: Order): Promise<void> {
     await OrderModel.create(
       {
